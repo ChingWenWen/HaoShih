@@ -286,10 +286,7 @@ loginRouter.post('/login', (req, res) => {
                             userName: results[0].account,
                             vendorName: userType === 'vendor' ? req.session.vendorName : null
                         });
-                    } else {
-                        // 對於非 AJAX 請求，直接重定向
-                        return res.redirect('/');
-                    }
+                    } 
 
                 } else {
                     console.log(`${userType} 密碼錯誤:`, account);
