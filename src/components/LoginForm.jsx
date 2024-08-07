@@ -5,6 +5,8 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
 function LoginForm({ onSubmit, buttonText }) {
+  console.log('LoginForm 接收到的 props', { onSubmit, buttonText });
+
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({
     account: '',
@@ -18,10 +20,21 @@ function LoginForm({ onSubmit, buttonText }) {
       event.preventDefault();
       event.stopPropagation();
     } else {
-      onSubmit(formData);
+      console.log('呼叫onSubmit', formData);
+      if (typeof onSubmit === 'function') {
+        onSubmit(formData);
+      } else {
+        console.error('LoginForm: onSubmit不是一個函數', onSubmit);
+        alert('登入異常');
+      }
     }
     setValidated(true);
   };
+
+  if (typeof onSubmit === 'undefined' || typeof buttonText === 'undefined') {
+    console.log('LoginForm: props 未定義，不渲染表單');
+    return null;
+  }
 
   const doChange = (e) => {
     setFormData({
@@ -63,7 +76,7 @@ function LoginForm({ onSubmit, buttonText }) {
               variant=" border border-2 c-gray rounded-pill px-4 py-2 w-25"
               type="submit"
             >
-              {buttonText}
+              {buttonText || '登入'}
             </Button>
           </div>
           <div className="f-start border-top p-3 mt-4 gap-3 w-100">

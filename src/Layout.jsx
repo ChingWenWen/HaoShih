@@ -43,12 +43,12 @@ const Layout = () => {
           </Routes>
           {/* <ShopCart /> */}
           {/* <Step1 /> */}
-          <Normal />
+          {/* <Normal /> */}
         </div>
       </div>
       <Login />
       <LoginNormal />
-      <LoginVendor />
+      {/* <LoginVendor /> */}
     </div>
   );
 };
