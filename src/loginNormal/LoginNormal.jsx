@@ -29,7 +29,7 @@ const LoginNormal = () => {
       }
     } catch (error) {
       console.error('登入失敗:', error);
-      setError(error.response?.data?.error || '登入失敗');
+      setError('登入過程發生錯誤，請稍後再試');
     }
   };
   return (
