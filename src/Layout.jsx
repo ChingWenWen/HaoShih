@@ -48,7 +48,7 @@ const Layout = () => {
       </div>
       <Login />
       <LoginNormal />
-      {/* <LoginVendor /> */}
+      <LoginVendor />
     </div>
   );
 };

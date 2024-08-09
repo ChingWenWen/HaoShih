@@ -1,8 +1,37 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
-
 import LoginForm from "../components/LoginForm";
+import React,{useState} from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LoginNormal = () => {
+
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (formData) => {
+    console.log("LoginNormal handleSubmit", formData);
+    // 登入邏輯
+    try {
+      const response = await axios.post('http://localhost:3200/', {
+        account: formData.account,
+        password: formData.password,
+        userType: 'member'  
+      });
+      
+      if (response.data.success) {
+        console.log('登入成功', response.data);
+        const uid = response.data.uid;
+        // 成功登錄後導到會員頁面
+        navigate(`/member/${uid}`);
+      } else {
+        setError(response.data.error || '登入失敗');
+      }
+    } catch (error) {
+      console.error('登入失敗:', error);
+      setError(error.response?.data?.error || '登入失敗');
+    }
+  };
   return (
     <>
       <div className="p-5 ">
@@ -27,7 +56,7 @@ const LoginNormal = () => {
           {/* 登入 */}
 
           <div className="w-50 f-col-center p-5 bg-glass">
-            <LoginForm />
+            <LoginForm onSubmit={handleSubmit} buttonText="登入" />
           </div>
         </div>
       </div>

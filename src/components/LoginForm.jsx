@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-function LoginForm({ onSubmit, buttonText }) {
+function LoginForm({ onSubmit, buttonText = "登入" }) {
   console.log('LoginForm 接收到的 props', { onSubmit, buttonText });
 
   const [validated, setValidated] = useState(false);
@@ -30,11 +30,6 @@ function LoginForm({ onSubmit, buttonText }) {
     }
     setValidated(true);
   };
-
-  if (typeof onSubmit === 'undefined' || typeof buttonText === 'undefined') {
-    console.log('LoginForm: props 未定義，不渲染表單');
-    return null;
-  }
 
   const doChange = (e) => {
     setFormData({
